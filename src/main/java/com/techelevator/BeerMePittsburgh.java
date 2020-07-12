@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
 @SpringBootApplication(exclude={DataSourceAutoConfiguration.class, SecurityAutoConfiguration.class})
-public class SpringBootSeedApplication {
+public class BeerMePittsburgh {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringBootSeedApplication.class, args);
+		SpringApplication.run(BeerMePittsburgh.class, args);
 	}
 
 }
