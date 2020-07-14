@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class beerMeController {
+public class BreweryController {
 
 	@RequestMapping(path = "", method = RequestMethod.GET)
 	public String greeting() {
