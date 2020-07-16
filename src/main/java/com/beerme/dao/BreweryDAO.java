@@ -8,7 +8,7 @@ public interface BreweryDAO {
 	
 	List <Brewery> viewAllBreweries();
 	
-	Brewery viewByLocationId(int locationId);
+	List<Brewery> viewByLocationId(int locationId);
 	
 	List <Brewery> viewUnvisited(boolean visited);
 	
