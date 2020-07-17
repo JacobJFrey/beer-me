@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.beerme.JDBC.JDBCBreweryDAO;
+import com.beerme.dao.BreweryDAO;
 import com.beerme.model.Brewery;
 
 @RestController
@@ -17,6 +18,10 @@ public class BreweryController {
 		this.breweryDAO = breweryDAO;
 	}
 	
+	@RequestMapping(path = "", method = RequestMethod.GET)
+	public String greeting() {
+		return "Hello World!";
+	}
 	
 	
 	

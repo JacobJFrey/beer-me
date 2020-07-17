@@ -1,5 +1,6 @@
 package com.beerme.model;
 
+
 public class Brewery {
 
 	private int breweryid;
