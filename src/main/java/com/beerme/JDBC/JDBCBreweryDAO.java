@@ -28,6 +28,7 @@ public class JDBCBreweryDAO implements BreweryDAO{
 				"SELECT * " +
 				"FROM brewery b " +
 				"JOIN location l ON l.locationId = b.locationId " +
+				"JOIN beer be ON be.beerId = b.beerId " +
 				"ORDER BY b.breweryid";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetAllBreweries);
 		while(results.next()) {
@@ -45,7 +46,8 @@ public class JDBCBreweryDAO implements BreweryDAO{
 		String sqlGetBreweriesByLocation = 
 				"SELECT * " + 
 				"FROM brewery b " + 
-				"JOIN location l ON l.locationId = b.locationId " + 
+				"JOIN location l ON l.locationId = b.locationId " +
+				"JOIN beer be ON be.beerId = b.beerId " +
 				"WHERE l.locationId = ?";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetBreweriesByLocation, locationId);
 		while(results.next()) {
@@ -63,7 +65,8 @@ public class JDBCBreweryDAO implements BreweryDAO{
 		String sqlGetUnvisited = 
 				"SELECT * " + 
 				"FROM brewery b " + 
-				"JOIN location l ON l.locationId = b.locationId " + 
+				"JOIN location l ON l.locationId = b.locationId " +
+				"JOIN beer be ON be.beerId = b.beerId " +
 				"WHERE b.visited = ? " + 
 				"ORDER BY b.breweryid";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetUnvisited, visited);
@@ -83,6 +86,7 @@ public class JDBCBreweryDAO implements BreweryDAO{
 				"SELECT * " + 
 				"FROM brewery b " + 
 				"JOIN location l ON l.locationId = b.locationId " + 
+				"JOIN beer be ON be.beerId = b.beerId " +
 				"WHERE b.hasFood = ? " + 
 				"ORDER BY b.breweryid";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetByFood, hasFood);
@@ -101,7 +105,8 @@ public class JDBCBreweryDAO implements BreweryDAO{
 		String sqlGetByFood = 
 				"SELECT * " + 
 				"FROM brewery b " + 
-				"JOIN location l ON l.locationId = b.locationId " + 
+				"JOIN location l ON l.locationId = b.locationId " +
+				"JOIN beer be ON be.beerId = b.beerId " +
 				"WHERE l.direction = ? " + 
 				"ORDER BY b.breweryid";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetByFood, direction);
@@ -168,6 +173,8 @@ public class JDBCBreweryDAO implements BreweryDAO{
 		breweryObject.setBeerid(results.getInt("beerid"));
 		breweryObject.setDescription(results.getString("description"));
 		breweryObject.setVisited(results.getBoolean("visited"));
+		breweryObject.setBeerName(results.getString("beername"));
+		breweryObject.setCity(results.getString("city"));
 		return breweryObject;
 	}
 

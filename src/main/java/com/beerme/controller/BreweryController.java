@@ -54,7 +54,7 @@ public class BreweryController {
 		return breweryList;
 	}
 	
-	@RequestMapping(path = "/breweries/details/{breweryId}", method = RequestMethod.GET)
+	@RequestMapping(path = "/breweries/{breweryId}", method = RequestMethod.GET)
 	public Brewery getDetails(@PathVariable int breweryId) {
 		Brewery breweryDetails = breweryDAO.getBreweryDetails(breweryId);
 		return breweryDetails;

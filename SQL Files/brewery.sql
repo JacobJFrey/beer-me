@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS beerType;
 DROP TABLE IF EXISTS history;
 
 DROP SEQUENCE IF EXISTS brewery_breweryId_seq;
+DROP SEQUENCE IF EXISTS history_historyid_seq;
 
 CREATE SEQUENCE brewery_breweryId_seq
   INCREMENT BY 1
@@ -28,7 +29,7 @@ CREATE TABLE brewery (
 
 CREATE TABLE beer (
     beerId integer NOT NULL,
-    name varchar(50) NOT NULL,
+    beerName varchar(50) NOT NULL,
     typeId integer NOT NULL,
     description varchar(1000),
     CONSTRAINT pk_beer_beerId PRIMARY KEY (beerId)
@@ -43,7 +44,7 @@ CREATE TABLE location (
 
 CREATE TABLE beerType (
     typeId integer NOT NULL,
-    name varchar(20),
+    typeName varchar(20),
     CONSTRAINT pk_beerType_typeId PRIMARY KEY (typeId)
 );
 
@@ -124,127 +125,127 @@ INSERT INTO location (locationId, city, direction)
 VALUES (28, 'Emsworth', 'West');
 
 -- Beer types
-INSERT INTO beerType (typeId, name)
+INSERT INTO beerType (typeId, typeName)
 VALUES (1, 'India Pale Ale');
-INSERT INTO beerType (typeId, name)
+INSERT INTO beerType (typeId, typeName)
 VALUES (2, 'Ale');
-INSERT INTO beerType (typeId, name)
+INSERT INTO beerType (typeId, typeName)
 VALUES (3, 'Lager');
-INSERT INTO beerType (typeId, name)
+INSERT INTO beerType (typeId, typeName)
 VALUES (4, 'Stout');
-INSERT INTO beerType (typeId, name)
+INSERT INTO beerType (typeId, typeName)
 VALUES (5, 'Red Ale');
-INSERT INTO beerType (typeId, name)
+INSERT INTO beerType (typeId, typeName)
 VALUES (6, 'Pilsner');
-INSERT INTO beerType (typeId, name)
+INSERT INTO beerType (typeId, typeName)
 VALUES (7, 'Wheat');
-INSERT INTO beerType (typeId, name)
+INSERT INTO beerType (typeId, typeName)
 VALUES (8, 'Pumpkin');
-INSERT INTO beerType (typeId, name)
+INSERT INTO beerType (typeId, typeName)
 VALUES (9, 'Pale Ale');
-INSERT INTO beerType (typeId, name)
+INSERT INTO beerType (typeId, typeName)
 VALUES (10, 'Brown Ale');
-INSERT INTO beerType (typeId, name)
+INSERT INTO beerType (typeId, typeName)
 VALUES (11, 'Cider');
-INSERT INTO beerType (typeId, name)
+INSERT INTO beerType (typeId, typeName)
 VALUES (12, 'Dunkelweizen');
-INSERT INTO beerType (typeId, name)
+INSERT INTO beerType (typeId, typeName)
 VALUES (13, 'Cream Ale');
-INSERT INTO beerType (typeId, name)
+INSERT INTO beerType (typeId, typeName)
 VALUES (14, 'Porter');
 
 -- Most popular beer per Untapped, Description also from untapped
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (1, 'Rt. 113 IPA', 1, '7% ABV : This complex, aromatic beer is brewed with an abundance of the finest hops from the Pacific Northwest and England. Every sip will remind you of just why you fell in love with craft beer in the first place.');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (2, 'Bane of Existence', 1, '6.6% ABV');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (3, 'Lustra', 9, '5.8% ABV : Intense tropical and citrus fruit aromas and a clean fruity bitterness work in harmony with the lightly toasted wheat bread flavors derived from the malt.');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (4, 'Hop Farm IPA', 1, '6.5% ABV');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (5, 'Ginga Wheat', 7, '5% ABV : American wheat beer with fresh pressed ginger, honey, and lemon.');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (6, 'R2 Koelschip', 2, '4.2% : Belgian style Farmhouse ale in dedication to our first coolship (koelschip), nicknamed R2.');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (7, 'Hazedelic Juice Grenade', 1, '6.4% ABV : This super hazy New England Style IPA explodes in your mouth with creamy notes of orange and mango. It finishes with a smooth and inviting bitterness that makes you ready to pull the pin on your next pint!');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (8, 'Cult Logic', 1, '6.8% ABV : A Double Dry Hopped, soft as hell, Hazy IPA with Australian Enigma, Denali and experimental hop BRU-1. This beer hits all the important fruit groups with Pineapple, fresh melon, peach, mango, Naval oranges and blueberry playing a major role.');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (9, 'Squish', 9, '5% ABV : Our eminently crushable house pale ale hopped thoughtfully to evoke sticky mango, candied pineapple, tangerine zest, and pine needles. Equal parts crisp and round on the mouthfeel, finishing fairly dry. Low bitterness, soft and juicy. Light golden and hazy.');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (10, 'I.C. Light', 3, '4.2% ABV : The only premium light lager that embodies all things black & gold, I.C. Light is brimming with bold iron city flavor.');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (11, 'Fighting Elleck Hard Apple Cider', 11, '8.2% ABV : This is our off-dry cider. Named after Alexander Hayes, the fightin Elleck, who is buried locally at Allegheny Cemetery.');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (12, 'ThunderHop IPA', 1, '6.5% ABV : Light body and color create a canvas for the hops to shine. Australian Galaxy, American Palisade and German Mandarina Bavaria hops lend juicy and tropical notes to the beers aroma.');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (13, 'Super Galaxy Sasquatch', 1, '8% ABV : Single-hopped with Galaxy, Galaxy & more Galaxy. Then double dry-hopped with Galaxy.');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (14, 'General Braddocks IPA', 1, '6.8% ABV : Soft & balanced American IPA. A beer you can always come back to.');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (15, 'Love Child', 2, '9.2% ABV : Voodoo Love Child is our Gran Met aged on passion fruit, cherries, and raspberries. This ale is inspired by fun, flavor, and a passion for brewing.');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (16, 'India Pale Ale', 1, '6.5% ABV : This classic, golden-hued ale is brewed with the finest hand-selected hops from the Pacific Northwest for an assertive, citrus hop flavor.');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (17, 'Big Hop', 9, '5.8% ABV : Centennial and Cascade hops make this a truly American Ale, brewed to be hoppy but not especially bitter, balanced with a solid Munich Malt backbone.');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (18, 'Ottoman Empire', 1, '9.2% ABV : Be the commander of our hops army. Four varieties of hops will reign supreme and conquer your desire for the best double ipa ever brewed. Put your feet on an ottoman and rule the Living Room with an Ottoman Empire in hand.');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (19, 'BrewDog VS Evil Twin', 4, '9% ABV : Darker than Evil and smoother than a late show host. Chocolate, bitter espresso, and vanilla ride up front, closely tailgated by roasty, nutty notes. Oats and wheat round things out with nitro delivering a supersonic smooth ride.');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (20, 'Dunkle', 12, '5.5% ABV');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (21, 'Oceanic', 1, '6.6% ABV : Hazy IPA with Citra, Galaxy and Motueka hops');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (22, 'Afternoon', 9, '4.5% ABV : AFTERNOON is our modest pale ale, around 30 IBU, brewed with a mix of old and new world hops, several Belgian yeast strains');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (23, 'Penn Pilsner', 6, '5% ABV : Amber-colored with a malty nose and a touch of Noble hops, Penn Pilsner has caramel and toffee notes as well as toasted, nutty hints.');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (24, 'Matcha Tea Milkshake Ale', 2, '5.3% ABV : Brewed with wheat, flaked wheat, flaked oats, oat flour, and milk sugar (lactose) for a full body with a residue sweetness. Then conditioned with a ridiculous amount of Madagascar vanilla beans and a calculated amount of Matcha green tea powder. Served on nitro for added creaminess, body and a whipped cream like head. The aroma and flavor of this beer is strong vanilla and Matcha green tea.');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (25, '2 Hour Delay', 10, '8.6% ABV : Imperial brown ale brewed with honey');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (26, 'Palo Alto Pale Ale', 9, '6.5% ABV : A hoppy American style pale ale, with tropical hop flavors and aromas. Eukanot, cascade, amarillo and citra hops create the tropical hop profile of this light pale ale.');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (27, 'Red Brain', 5, '6% ABV : A balanced beer, with toasted malt characters, a light fruitiness and a lightly spicy, floral hop finish . Our Amber is brewed with 2-row Pale, Crystal, Amber and Chocolate malts.');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (28, 'Killer Diller', 1, '6.8% ABV');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (29, 'Head Hunter IPA', 1, '7.5% ABV : Uncivilized and aggressive, this West Coast styled IPA packs wicked hop flavors and aroma. World Beer Cup Silver 2012. GABF Silver 2010, Bronze 2011. National IPA Championship Winner 2012, 2010.');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (30, 'Pumpking', 8, '8.6% ABV : Pumpkin puree and pie spices, malty, bready; cinnamon dominates with nutmeg and vanilla in the background.');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (31, 'Serendipity IPA', 1, '7.2% ABV : Serendipity is the occurrence of an unplanned fortunate discovery — AND an incredibly drinkable IPA.');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (32, '511 NE IPA', 12, '6.8% ABV');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (33, 'Quittin Time Cream Ale', 13, '4.6% ABV : Our unique blend of flaked rice and corn mixed with specialty grains produce a light-bodied ale. Youll be counting down the time to "Beer O Clock!"');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (34, 'Black Bear', 1, '6.7% ABV : American Black Ale... Pitch black in color and showcases malty and moderate roast notes. It is quite happy as it uses 4 different American hop varieties through the brewing and fermentation process.');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (35, 'American IPA', 1, '6.5% ABV');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (36, 'Flash Lightning Speed Porter', 14, '5.2% ABV : This delicious porter is different from most porters you have had before - easy drinking, not super high in alcohol and goes down so easy it will be gone in a flash.');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (37, 'Oh, Jack-o-lantern', 8, '9.1% ABV : An imperial pumpkin ale that will make you go bump in the night. Clove, vanilla, cinnamon, and nutmeg fill in the chilly night air. The finish surprises you like bubbles from a couldron. This spooky tale of an ale is perfect with chocolate and sweet harvest fruits.');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (38, 'Luckys Black IPA', 1, '6.5% ABV');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (39, 'Lunar Weizen', 7, '5.7% ABV');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (40, 'Sids 1k IPA', 1, '7.1% ABV : This West coast meets east coast IPA is brewed with Warrior, Amarillo and Citra hops. Slight bitterness up front rounds off to a most enjoyable finish. We brewed this beer in honor of Sidney Crosbys 1000 point!');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (41, 'Milkshake NEIPA Series: Blackberry', 1, '6.3% ABV : Lactose, vanilla bean, and over a lb of hops (Pacific Gem, Huell Melon, Galaxy, Amarillo, Rakau, Citra) Then finished with 7 lbs of blackberry puree.');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (42, 'First Born Unicorn', 9, '5.7% ABV');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (43, 'Midnight Moo', 1, '7% ABV : Roasted Malts | coffee | Combination of IPA & Stout | Dark Explosion of Hops: Centennial, Willamette & Cascade');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (44, 'Mischievous Brown Ale', 10, '5.5% ABV : This traditional southern English style brown ale, combines European malts with American hops. The result is a rich, malty, full-bodied ale, with a subtle hint of fruitiness on the nose and palate.');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (45, 'Dude Wanted Juice', 1, '6.5% ABV : An intense nose of Citra and Amarillo hops followed up with a soft and smooth finish with pleasant lingering bitterness.');
-INSERT INTO BEER (beerId, name, typeId, description)
+INSERT INTO BEER (beerId, beerName, typeId, description)
 VALUES (46, 'Aurochs Session IPA', 1, '4.59% ABV : A hop driven beer with citrus, pine, lemon, melon and grapefruit flavors. Brewed with millet & quinoa.');
 
 -- breweries in & around pittsburgh

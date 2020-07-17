@@ -11,7 +11,24 @@ public class Brewery {
 	private String description;
 	private boolean visited;
 	
+	private String city;
 	
+	private String beerName;
+	
+	
+	
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getBeerName() {
+		return beerName;
+	}
+	public void setBeerName(String beerName) {
+		this.beerName = beerName;
+	}
 	public int getBreweryid() {
 		return breweryid;
 	}
