@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.beerme.model.Brewery;
 
+
 public interface BreweryDAO {
 	
 	List <Brewery> viewAllBreweries();

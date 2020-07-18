@@ -3,14 +3,13 @@ package com.beerme.JDBC;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Service;
 import com.beerme.dao.BreweryDAO;
 import com.beerme.model.Brewery;
 
-@EnableAutoConfiguration
+
 @Service
 public class JDBCBreweryDAO implements BreweryDAO{
 
@@ -19,15 +18,17 @@ public class JDBCBreweryDAO implements BreweryDAO{
 	public JDBCBreweryDAO(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
-	
+
+	// all breweries
 	@Override
 	public List<Brewery> viewAllBreweries() {
 		Brewery brewery = new Brewery();
 		List<Brewery> allBreweries = new LinkedList<>();
 		String sqlGetAllBreweries = 
-				"SELECT b.breweryid, b.name, b.address, l.city, b.visited " +
+				"SELECT * " +
 				"FROM brewery b " +
 				"JOIN location l ON l.locationId = b.locationId " +
+				"JOIN beer be ON be.beerId = b.beerId " +
 				"ORDER BY b.breweryid";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetAllBreweries);
 		while(results.next()) {
@@ -37,6 +38,7 @@ public class JDBCBreweryDAO implements BreweryDAO{
 		return allBreweries;
 	}
 
+	// breweries list by city id (location id)
 	@Override
 	public List<Brewery> viewByLocationId(int locationId) {
 		Brewery brewery = new Brewery();
@@ -44,7 +46,8 @@ public class JDBCBreweryDAO implements BreweryDAO{
 		String sqlGetBreweriesByLocation = 
 				"SELECT * " + 
 				"FROM brewery b " + 
-				"JOIN location l ON l.locationId = b.locationId " + 
+				"JOIN location l ON l.locationId = b.locationId " +
+				"JOIN beer be ON be.beerId = b.beerId " +
 				"WHERE l.locationId = ?";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetBreweriesByLocation, locationId);
 		while(results.next()) {
@@ -54,14 +57,16 @@ public class JDBCBreweryDAO implements BreweryDAO{
 		return breweryByCity;
 	}
 
+	// view visited or unvisited breweries
 	@Override
 	public List<Brewery> viewUnvisited(boolean visited) {
 		Brewery brewery = new Brewery();
 		List<Brewery> unvisitedBreweries = new LinkedList<>();
 		String sqlGetUnvisited = 
-				"SELECT b.breweryid, b.name, b.address, l.city " + 
+				"SELECT * " + 
 				"FROM brewery b " + 
-				"JOIN location l ON l.locationId = b.locationId " + 
+				"JOIN location l ON l.locationId = b.locationId " +
+				"JOIN beer be ON be.beerId = b.beerId " +
 				"WHERE b.visited = ? " + 
 				"ORDER BY b.breweryid";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetUnvisited, visited);
@@ -72,14 +77,16 @@ public class JDBCBreweryDAO implements BreweryDAO{
 		return unvisitedBreweries;
 	}
 
+	// get breweries by if they serve food or not
 	@Override
 	public List<Brewery> breweriesByFood(boolean hasFood) {
 		Brewery brewery = new Brewery();
 		List<Brewery> breweryByFood = new LinkedList<>();
 		String sqlGetByFood = 
-				"SELECT b.breweryid, b.name, b.address, l.city " + 
+				"SELECT * " + 
 				"FROM brewery b " + 
 				"JOIN location l ON l.locationId = b.locationId " + 
+				"JOIN beer be ON be.beerId = b.beerId " +
 				"WHERE b.hasFood = ? " + 
 				"ORDER BY b.breweryid";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetByFood, hasFood);
@@ -90,14 +97,16 @@ public class JDBCBreweryDAO implements BreweryDAO{
 		return breweryByFood;
 	}
 
+	// get all breweries by direction in relation to downtown
 	@Override
 	public List<Brewery> breweriesByDirection(String direction) {
 		Brewery brewery = new Brewery();
 		List<Brewery> breweryByDirection = new LinkedList<>();
 		String sqlGetByFood = 
-				"SELECT b.breweryid, b.name, b.address, l.city " + 
+				"SELECT * " + 
 				"FROM brewery b " + 
-				"JOIN location l ON l.locationId = b.locationId " + 
+				"JOIN location l ON l.locationId = b.locationId " +
+				"JOIN beer be ON be.beerId = b.beerId " +
 				"WHERE l.direction = ? " + 
 				"ORDER BY b.breweryid";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetByFood, direction);
@@ -108,29 +117,35 @@ public class JDBCBreweryDAO implements BreweryDAO{
 		return breweryByDirection;
 	}
 
+	// get brewery details by breweryID
 	@Override
 	public Brewery getBreweryDetails(int breweryId) {
 		Brewery brewery = new Brewery();
 		String sqlGetBreweryDetails = 
-				"SELECT b.breweryid, b.name, b.address, l.city, b.description, be.name " + 
+				"SELECT * " + 
 				"FROM brewery b " + 
 				"JOIN location l ON l.locationId = b.locationId " + 
 				"JOIN beer be ON be.beerid = b.beerid " + 
 				"WHERE b.breweryid = ?";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetBreweryDetails, breweryId);
-		brewery = mapRowToBrewery(results);
+		while (results.next()) {
+			brewery = mapRowToBrewery(results);
+		}
 		return brewery;
 	}
 
+	
+	// FOR SOME REASON PULLS UP BREWERY BY BEER ID - 1
+	// 29 PULLS UP BREWERY WITH BEER ID OF 28
 	@Override
 	public Brewery getBreweryByBeerId(int beerId) {
 		Brewery brewery = new Brewery();
 		String sqlGetBreweryByBeerId = 
-				"SELECT br.breweryid, br.name, b.name, bt.name, b.description " + 
+				"SELECT * " + 
 				"FROM beer b " + 
 				"JOIN beertype bt ON b.typeid = bt.typeid " + 
 				"JOIN brewery br ON br.beerid = b.beerid " + 
-				"WHERE bt.typeid = ?";
+				"WHERE b.beerid = ?";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetBreweryByBeerId, beerId);
 		while(results.next()) {
 			brewery = mapRowToBrewery(results);
@@ -138,6 +153,7 @@ public class JDBCBreweryDAO implements BreweryDAO{
 		return brewery;
 	}
 
+	// update visited from false to true
 	@Override
 	public void updateVisited(int breweryId) {
 		String sqlUpdateVisited = 
@@ -157,78 +173,21 @@ public class JDBCBreweryDAO implements BreweryDAO{
 		breweryObject.setBeerid(results.getInt("beerid"));
 		breweryObject.setDescription(results.getString("description"));
 		breweryObject.setVisited(results.getBoolean("visited"));
+		breweryObject.setBeerName(results.getString("beername"));
+		breweryObject.setCity(results.getString("city"));
 		return breweryObject;
 	}
 
 }
 
-
-/*
- -- view all cities to search from
-SELECT *
-FROM location
-ORDER BY locationid;
-
--- select breweries by locationid
-SELECT *
-FROM brewery b
-JOIN location l ON l.locationId = b.locationId
-WHERE l.locationId = 4;
-
--- select all breweries / ordered by breweryid
-SELECT b.breweryid, b.name, b.address, l.city, b.visited
-FROM brewery b
-JOIN location l ON l.locationId = b.locationId
-ORDER BY b.breweryid;
-
--- select all unvisited breweries
-SELECT b.breweryid, b.name, b.address, l.city
-FROM brewery b
-JOIN location l ON l.locationId = b.locationId
-WHERE b.visited = false
-ORDER BY b.breweryid;
-
--- select breweries by hasFood = true
-SELECT b.breweryid, b.name, b.address, l.city
-FROM brewery b
-JOIN location l ON l.locationId = b.locationId
-WHERE b.hasFood = true
-ORDER BY b.breweryid;
-
--- select breweries by location in relation to downtown
-SELECT b.breweryid, b.name, b.address, l.city
-FROM brewery b
-JOIN location l ON l.locationId = b.locationId
-WHERE l.direction = 'East'
-ORDER BY b.breweryid;
-
--- get brewery details by breweryid
-SELECT b.breweryid, b.name, b.address, l.city, b.description, be.name
-FROM brewery b
-JOIN location l ON l.locationId = b.locationId
-JOIN beer be ON be.beerid = b.beerid
-WHERE b.breweryid = 9;
-
--- get beer details by beerid
-SELECT br.breweryid, br.name, b.name, bt.name, b.description
-FROM beer b
-JOIN beertype bt ON b.typeid = bt.typeid
-JOIN brewery br ON br.beerid = b.beerid
-WHERE bt.typeid = 9;
-
--- get brewery by beerid
-SELECT b.breweryid, b.name, b.address, l.city
-FROM brewery b
-JOIN location l ON l.locationId = b.locationId
-WHERE b.beerid = 3
-ORDER BY b.breweryid;
-
--- update visited from false to true
-UPDATE brewery
-SET visited = true
-WHERE breweryid = 1;
-
--- add brewery to history
-INSERT INTO history (breweryname, date)
-VALUES ('Sly Fox', --will get current date from java);
-*/
+//-- get beer details by beerid
+//SELECT br.breweryid, br.name, b.name, bt.name, b.description
+//FROM beer b
+//JOIN beertype bt ON b.typeid = bt.typeid
+//JOIN brewery br ON br.beerid = b.beerid
+//WHERE bt.typeid = 9;
+//
+//-- add brewery to history
+//INSERT INTO history (breweryname, date)
+//VALUES ('Sly Fox', --will get current date from java);
+//*/
