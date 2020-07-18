@@ -19,29 +19,11 @@ public class BreweryController {
 		this.breweryDAO = breweryDAO;
 	}
 	
-	@RequestMapping(path = "", method = RequestMethod.GET)
-<<<<<<< HEAD
-	public String testMethod() {
-		return "hello world";
-	}
-	
-	
-//	@RequestMapping(path = "/brewery", method = RequestMethod.GET)
-//	public List<Brewery> getBreweries() {
-//		List<Brewery> breweryList = breweryDAO.viewAllBreweries();
-//		return breweryList;
-//	}
-=======
-	public String greeting() {
-		return "Hello World!";
-	}
-	
 	@RequestMapping(path = "/breweries", method = RequestMethod.GET)
 	public List<Brewery> getBreweries() {
 		List<Brewery> breweryList = breweryDAO.viewAllBreweries();
 		return breweryList;
 	}
->>>>>>> ee527d369e4bee68c9a4065f0b4818fe309ec86b
 	
 	@RequestMapping(path = "/breweries/location/{id}", method = RequestMethod.GET)
 	public List<Brewery> getBreweryByLocationId(@PathVariable int id) {
